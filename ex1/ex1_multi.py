@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 from gradientDescentMulti import gradientDescentMulti
 from normalEqn import normalEqn
 from featureNormalize import featureNormalize
-from show import show
+#from show import show
+
 # ================ Part 1: Feature Normalization ================
 
 print('Loading data ...')
@@ -26,13 +27,14 @@ input("Program paused. Press Enter to continue...")
 # Scale features and set them to zero mean
 print('Normalizing Features ...')
 
-X, mu, sigma = featureNormalize(X)
+X_norm, mu, sigma = featureNormalize(X)
 print('[mu] [sigma]')
 print(mu, sigma)
 
-# Add intercept term to X
-X = np.concatenate((np.ones((m, 1)), X), axis=1)
 
+# Add intercept term to X
+X_norm = np.concatenate((np.ones((m, 1)), X_norm), axis=1)
+print('X_norm size is: ', X_norm.shape)
 
 # ================ Part 2: Gradient Descent ================
 #
@@ -61,18 +63,18 @@ X = np.concatenate((np.ones((m, 1)), X), axis=1)
 print('Running gradient descent ...')
 
 # Choose some alpha value
-alpha = 0.01
+alpha = 0.1
 num_iters = 400
 
 # Init Theta and Run Gradient Descent 
 theta = np.zeros(3)
-theta, J_history = gradientDescentMulti(X, y, theta, alpha, num_iters)
+theta, J_history = gradientDescentMulti(X_norm, y, theta, alpha, num_iters)
 
 # Plot the convergence graph
 plt.plot(J_history, '-b')
 plt.xlabel('Number of iterations')
 plt.ylabel('Cost J')
-show()
+plt.show()
 input("Program paused. Press Enter to continue...")
 
 # Display gradient descent's result
@@ -80,7 +82,15 @@ print('Theta computed from gradient descent: ')
 print(theta)
 
 # Estimate the price of a 1650 sq-ft, 3 br house
-price = np.array([1,3,1650]).dot(theta)
+  #get array of features
+est_feats = np.array([2, 1650, 3])
+  #normalize the features to match the X_norm
+mu = np.concatenate((np.ones(1),mu,),axis=0)
+sigma = np.concatenate((np.ones(1),sigma,),axis=0)
+  #normalize the features
+est_featsNorm = (est_feats - mu)/sigma
+#estimate price with norm features
+price = np.array(est_featsNorm).dot(theta)
 
 print('Predicted price of a 1650 sq-ft, 3 br house')
 print('(using gradient descent): ')
@@ -112,14 +122,14 @@ m = y.T.size
 X = np.concatenate((np.ones((m,1)), X), axis=1)
 
 # Calculate the parameters from the normal equation
-theta = normalEqn(X, y)
+theta_norm = normalEqn(X, y)
 
 # Display normal equation's result
-print('Theta computed from the normal equations:')
-print(' %s \n' % theta)
+print('Theta computed from the normal equations: $')
+print('%s \n' % theta)
 
 # Estimate the price of a 1650 sq-ft, 3 br house
-price = np.array([1, 3, 1650]).dot(theta)
+price = np.array([1, 1650, 3]).dot(theta_norm)
 
 # ============================================================
 

@@ -24,8 +24,21 @@ def featureNormalize(X):
     #
     # Hint: You might find the 'mean' and 'std' functions useful.
     #
-
-
-# ============================================================
-
+    
+    # get the number of features in X and norm 1 col at a time 
+    sz = X.shape
+    for i in range(X.shape[1]):
+        mu_i = np.mean(X[:,i])   #calculate mean for each col
+        sigma_i = np.std(X[:,i])  #calculate sigma for each col
+        X_norm[:,i] = ((X_norm[:,i] - mu_i) / sigma_i)  #norm data in col
+        
+        # want to make an array of all values of mu and sigma
+        if i == 0: 
+            mu = mu_i
+            sigma = sigma_i
+        else:
+            mu = np.append(mu,mu_i)
+            sigma = np.append(sigma,sigma_i)
+    # ============================================================
+    
     return X_norm, mu, sigma
