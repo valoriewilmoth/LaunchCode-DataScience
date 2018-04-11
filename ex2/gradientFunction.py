@@ -1,6 +1,6 @@
 from sigmoid import sigmoid
-from numpy import squeeze, asarray
-
+from numpy import squeeze, asarray, reshape
+import numpy as np
 
 def gradientFunction(theta, X, y):
     """
@@ -19,5 +19,20 @@ def gradientFunction(theta, X, y):
 
 
 # =============================================================
-    grad =  0
+    #check data type
+    if type(X)!=np.array:  X = asarray(X)
+    if type(y)!=np.array:  y = asarray(y)
+    
+    
+    h = sigmoid(X.dot(theta))
+    
+    #check to make sure h and y have the same shape.  
+    #having issues with rank 1 arrays (n,)
+    #if h.shape!=y.shape: h = np.reshape(h,(-1,1))
+    if h.shape!=y.shape: y = y[:,0]
+      
+    grad = (m**-1) * (X.T.dot(h - y))
+      
     return grad
+
+#grad = gradientFunction(initial_theta,X.values,y.values)

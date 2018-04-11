@@ -4,12 +4,10 @@ from matplotlib import use
 use('TkAgg')
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.optimize import minimize
-
 import pandas as pd
 
+from scipy.optimize import minimize
 from ml import mapFeature, plotData, plotDecisionBoundary
-from show import show
 from costFunctionReg import costFunctionReg
 from gradientFunctionReg import gradientFunctionReg
 from sigmoid import sigmoid
@@ -18,7 +16,8 @@ from sigmoid import sigmoid
 def optimize(Lambda):
 
     result = minimize(costFunctionReg, initial_theta, method='L-BFGS-B',
-               jac=gradientFunctionReg, args=(X.as_matrix(), y, Lambda),
+               jac=gradientFunctionReg, 
+               args=(X.as_matrix(), y, Lambda),
                options={'gtol': 1e-4, 'disp': False, 'maxiter': 1000})
 
     return result
@@ -28,12 +27,10 @@ def optimize(Lambda):
 def plotBoundary(theta, X, y):
     plotDecisionBoundary(theta, X.values, y.values)
     plt.title(r'$\lambda$ = ' + str(Lambda))
-
     # Labels and Legend
     plt.xlabel('Microchip Test 1')
     plt.ylabel('Microchip Test 2')
-    show()
-
+    plt.show()
 
 
 # Initialization
@@ -51,7 +48,7 @@ plotData(X.values, y.values)
 # Labels and Legend
 plt.xlabel('Microchip Test 1')
 plt.ylabel('Microchip Test 2')
-show()
+plt.show()
 input("Program paused. Press Enter to continue...")
 
 

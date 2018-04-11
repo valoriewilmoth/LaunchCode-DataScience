@@ -26,7 +26,7 @@ def featureNormalize(X):
     #
     
     # get the number of features in X and norm 1 col at a time 
-    sz = X.shape
+ 
     for i in range(X.shape[1]):
         mu_i = np.mean(X[:,i])   #calculate mean for each col
         sigma_i = np.std(X[:,i])  #calculate sigma for each col

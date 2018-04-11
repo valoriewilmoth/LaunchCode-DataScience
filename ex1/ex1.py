@@ -63,6 +63,8 @@ input("Program paused. Press Enter to continue...")
 print('Running Gradient Descent ...')
 theta = np.zeros(2)
 
+print(X.shape, y.shape)
+
 # compute and display initial cost
 J = computeCost(X, y, theta)
 print('cost: %0.4f ' % J)

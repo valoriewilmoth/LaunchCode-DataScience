@@ -18,5 +18,10 @@ def predict(theta, X):
 
 # =========================================================================
 
-    p = 0
-    return p
+    pred = (sigmoid(X.dot(theta)))
+    pred[pred >= 0.5] = 1
+    pred[pred < 0.5] = 0
+
+    return pred
+
+#pred = predict(theta,X)

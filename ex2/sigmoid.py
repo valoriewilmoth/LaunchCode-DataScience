@@ -1,3 +1,4 @@
+import numpy as np
 from numpy import e
 
 def sigmoid(z):
@@ -8,5 +9,11 @@ def sigmoid(z):
 #               vector or scalar).
 
 # =============================================================
-    g = 0
+    g = 1. / (1. + np.power(e,-z))
+    
     return g
+
+#practice values and data types for z
+#g = sigmoid(np.array([[100,0],[1,-100]]))
+#g = sigmoid(np.array(0))
+#print(g)

@@ -19,5 +19,13 @@ def gradientFunctionReg(theta, X, y, Lambda):
 
 
 # =============================================================
-    grad = 0
+    
+    # Gradient Function for all thetas and will update Theta Zero Second  
+    grad = (gradientFunction(theta,X,y) + ((Lambda/m)*theta) )
+    
+    #update theta zero without regularization
+    grad[0] = gradientFunction(theta,X,y)[0]
+    
     return grad
+
+#grad = gradientFunctionReg(theta, X, y, 3)
