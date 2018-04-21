@@ -1,8 +1,19 @@
 import numpy as np
 from scipy.optimize import minimize
-
 from lrCostFunction import lrCostFunction
+
+import sys
+sys.path.append('../ex2')
 from ex2.gradientFunctionReg import gradientFunctionReg
+
+
+def optimize(Lambda):
+    result = minimize(lrCostFunction, initial_theta, method='L-BFGS-B',
+               jac=gradientFunctionReg, 
+               args=(X.as_matrix(), y, Lambda),
+               options={'gtol': 1e-4, 'disp': False, 'maxiter': 1000})
+    return result
+
 
 
 def oneVsAll(X, y, num_labels, Lambda):
@@ -34,14 +45,33 @@ def oneVsAll(X, y, num_labels, Lambda):
 #       function. It is okay to use a for-loop (for c = 1:num_labels) to
 #       loop over the different classes.
 
-    # Set Initial theta
-    initial_theta = np.zeros((n + 1, 1))
+    #looping over each number to do the one vs all.
+    for num in range(0,num_labels):
+        #making create a list of 0 and 1 for the truth for that number
+        y_num = y==(num+1)
+        y_num = y_num*1  #converting True/False to int
+        # Set Initial theta
+        initial_theta = np.zeros((n + 1, 1))
 
-    # This function will return theta and the cost
+        # To test out Cost Function and Gradient Function   
+        #J = lrCostFunction(initial_theta, X, y_num, Lambda)
+        #grad = gradientFunctionReg(initial_theta, X, y_num, Lambda)
+       
 
+        #Minimize using the CostFx and GradFunction 
+        result = minimize(lrCostFunction, initial_theta, method='L-BFGS-B',
+              jac=gradientFunctionReg, 
+              args=(X, y_num, Lambda),
+              options={'gtol': 1e-4, 'disp': False, 'maxiter': 1000})
+        #Put the theta values in the appropriate row
+        all_theta[num,:] = result.x
+        cost = result.fun
+        
 
-
+        
 # =========================================================================
 
     return all_theta
 
+#Test the program
+#a = oneVsAll(X, y, num_labels, Lambda)

@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../ex2')
 from ex2.costFunctionReg import costFunctionReg
 
 def lrCostFunction(theta, X, y, Lambda):
@@ -19,7 +21,7 @@ def lrCostFunction(theta, X, y, Lambda):
 #       prediction for that example. You can make use of this to vectorize
 #       the cost function and gradient computations. 
 #
-
+    J = costFunctionReg(theta, X, y, Lambda)
 
 
     # =============================================================

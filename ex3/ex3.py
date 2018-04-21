@@ -73,3 +73,10 @@ pred = predictOneVsAll(all_theta, X)
 accuracy = np.mean(np.double(pred == np.squeeze(y))) * 100
 print('\nTraining Set Accuracy: %f\n' % accuracy)
 
+#added extra to check images that were unable to be identified
+inc = pred!=np.squeeze(y)
+incData = X[inc]
+displayData(incData)
+
+
+
