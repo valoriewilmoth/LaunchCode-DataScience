@@ -3,8 +3,8 @@ from scipy.optimize import minimize
 from lrCostFunction import lrCostFunction
 
 import sys
-sys.path.append('../ex2')
-from ex2.gradientFunctionReg import gradientFunctionReg
+sys.path.append('../')
+from gradientFunctionReg import gradientFunctionReg
 
 
 def optimize(Lambda):

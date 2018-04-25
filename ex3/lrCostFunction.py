@@ -1,6 +1,6 @@
 import sys
-sys.path.append('../ex2')
-from ex2.costFunctionReg import costFunctionReg
+sys.path.append('../')
+from costFunctionReg import costFunctionReg
 
 def lrCostFunction(theta, X, y, Lambda):
     """computes the cost of using
