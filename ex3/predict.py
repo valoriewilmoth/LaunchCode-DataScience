@@ -1,7 +1,6 @@
 import numpy as np
-import sys
-sys.path.append('../')
-from sigmoid import sigmoid
+
+from ex2.sigmoid import sigmoid
 
 def predict(Theta1, Theta2, X):
     """ outputs the predicted label of X given the

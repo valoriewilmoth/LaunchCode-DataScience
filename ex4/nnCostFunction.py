@@ -23,11 +23,14 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
     Theta2 = np.reshape(nn_params[hidden_layer_size * (input_layer_size + 1):],
                        (num_labels, (hidden_layer_size + 1)), order='F').copy()
 
-
+    print(Theta1)
+    print(Theta2)
 
 # Setup some useful variables
     m, _ = X.shape
-
+    
+#add bias layer to X
+    X = np.concatenate((np.ones((m, 1)), X), axis=1)
 
 # ====================== YOUR CODE HERE ======================
 # Instructions: You should complete the code by working through the
@@ -38,6 +41,36 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
 #         cost function computation is correct by verifying the cost
 #         computed in ex4.m
 #
+    #computing cost function without regularization 
+    #make sure X and y are numpy array
+
+    
+    #calulcate hyp - first do layer 1
+    z1 = (X.dot(Theta1.T))
+    #add bias term
+    z1 = np.column_stack((np.ones((m, 1)), z1))
+    a2 = sigmoid(z1)
+     
+    # Add ones to the a(2) data matrix
+    #a2 = np.column_stack((np.ones((m, 1)), a2))
+    
+    #calculate the hyp for layer 2
+    z2 = a2.dot(Theta2.T)
+    a3 = sigmoid(z2)
+    
+    #need to get the y values in a matrix of mx10 0s and 1s
+    #create empty array of zeros
+    y_vec = np.zeros((m,num_labels))
+    #get 1 value for the value
+    for row in range(m):
+        y_vec[row,y[row]-1] = 1
+    
+  
+    J = (-1/m)*np.sum( (y_vec*np.log(a3)) + (1 - y_vec )*(np.log(1-a3)) )
+    
+    J = J + Lambda/(2*m) * ( np.sum(Theta1[:, 1:]**2) + np.sum(Theta2[:, 1:]**2) )
+    
+    
 # Part 2: Implement the backpropagation algorithm to compute the gradients
 #         Theta1_grad and Theta2_grad. You should return the partial derivatives of
 #         the cost function with respect to Theta1 and Theta2 in Theta1_grad and
@@ -53,6 +86,16 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
 #               over the training examples if you are implementing it for the 
 #               first time.
 #
+    
+    del3 = (a3-y_vec) # m x num_lables (5000 x 10)
+    #calculate g prime for the a2, add layer of ones to make shape fit
+    
+    del2 = np.multiply( del3.dot(Theta2), sigmoidGradient(z1) ) #m x s2 (5000X26)
+ 
+    Theta2_grad = ((1/m)*( a2.T.dot(del3) ).T)
+    Theta1_grad = ((1/m)*( X.T.dot(del2) )[:,1:]).T
+     
+   
 # Part 3: Implement regularization with the cost function and gradients.
 #
 #         Hint: You can implement this around the code for
@@ -62,13 +105,18 @@ def nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X
 #
 
 
-
     # -------------------------------------------------------------
+
+    Theta1_grad[:,1:] += (Lambda/m) * Theta1[:,1:]
+    Theta2_grad[:,1:] += (Lambda/m) * Theta2[:,1:]
+    
+
+    grad = np.hstack((Theta1_grad.T.ravel(), Theta2_grad.T.ravel()))
 
     # =========================================================================
 
-    # Unroll gradient
-    grad = np.hstack((Theta1_grad.T.ravel(), Theta2_grad.T.ravel()))
 
 
     return J, grad
+
+#J,grad = nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, Lambda)

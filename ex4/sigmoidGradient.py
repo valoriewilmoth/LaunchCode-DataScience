@@ -1,4 +1,5 @@
 from ex2.sigmoid import sigmoid
+import numpy as np
 
 def sigmoidGradient(z):
     """computes the gradient of the sigmoid function
@@ -11,6 +12,12 @@ def sigmoidGradient(z):
 #               each value of z (z can be a matrix, vector or scalar).
 
 
+    gZ = sigmoid(z)
+    g = np.multiply(gZ,(1-gZ))
+
+
 # =============================================================
 
     return g
+
+#g = sigmoidGradient(z)

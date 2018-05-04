@@ -2,18 +2,7 @@ import numpy as np
 from scipy.optimize import minimize
 from lrCostFunction import lrCostFunction
 
-import sys
-sys.path.append('../')
-from gradientFunctionReg import gradientFunctionReg
-
-
-def optimize(Lambda):
-    result = minimize(lrCostFunction, initial_theta, method='L-BFGS-B',
-               jac=gradientFunctionReg, 
-               args=(X.as_matrix(), y, Lambda),
-               options={'gtol': 1e-4, 'disp': False, 'maxiter': 1000})
-    return result
-
+from ex2.gradientFunctionReg import gradientFunctionReg
 
 
 def oneVsAll(X, y, num_labels, Lambda):

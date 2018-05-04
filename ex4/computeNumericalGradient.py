@@ -1,29 +1,17 @@
 import numpy as np
+#from nnCostFunction import nnCostFunction
 
-def computeNumericalGradient(J, theta):
-    """computes the numerical gradient of the function J around theta.
-    Calling y = J(theta) should return the function value at theta.
-    """
-# Notes: The following code implements numerical gradient checking, and 
-#        returns the numerical gradient.It sets numgrad(i) to (a numerical 
-#        approximation of) the partial derivative of J with respect to the 
-#        i-th input argument, evaluated at theta. (i.e., numgrad(i) should 
-#        be the (approximately) the partial derivative of J with respect 
-#        to theta(i).)
-
-    numgrad = np.zeros(theta.shape[0])
-    perturb = np.zeros(theta.shape[0])
-    e = 1e-4
+def computeNumericalGradient(costFunc, theta):
+    numgrad = np.zeros_like(theta)
+    perturb = np.zeros_like(theta)
+    eps = 1e-4
     for p in range(theta.size):
-
-        # Set perturbation vector
-        perturb[p] = e
-        loss1 = J(theta - perturb)
-        loss2 = J(theta + perturb)
-
-        # Compute Numerical Gradient
-        numgrad[p] = (loss2[0] - loss1[0]) / (2*e)
-        perturb[p] = 0
-
+        perturb[p] = eps
+        #loss1, _ = nnCostFunction((theta-perturb), input_layer_size, hidden_layer_size, num_labels, X, y, Lambda)
+        loss1, _ = costFunc(theta - perturb)
+        #loss2, _ = nnCostFunction((theta+perturb), input_layer_size, hidden_layer_size, num_labels, X, y, Lambda)
+        loss2, _ = costFunc(theta + perturb)
+        numgrad[p] = (loss2 - loss1) / (2.0 * eps)
+        perturb[p] = 0.0
     return numgrad
 

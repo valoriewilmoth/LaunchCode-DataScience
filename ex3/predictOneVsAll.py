@@ -1,7 +1,6 @@
 import numpy as np
-import sys
-sys.path.append('../')
-from sigmoid import sigmoid
+
+from ex2.sigmoid import sigmoid
 
 def predictOneVsAll(all_theta, X):
     """will return a vector of predictions

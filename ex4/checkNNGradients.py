@@ -13,28 +13,32 @@ def checkNNGradients(Lambda = 0):
     result in very similar values.
     """
 
-    input_layer_size = 3
-    hidden_layer_size = 5
-    num_labels = 3
-    m = 5
+    #input_layer_size = 4
+    #hidden_layer_size = 5
+    #num_labels = 3
+    #m = 10
 
     # We generate some 'random' test data
     Theta1 = debugInitializeWeights(hidden_layer_size, input_layer_size)
     Theta2 = debugInitializeWeights(num_labels, hidden_layer_size)
 
     # Reusing debugInitializeWeights to generate X
-    X  = debugInitializeWeights(m, input_layer_size - 1)
+    X  = debugInitializeWeights(m, input_layer_size-1)
     y  = np.mod(range(1, m+1), num_labels)
 
     # Unroll parameters
     nn_params = np.hstack((Theta1.T.ravel(), Theta2.T.ravel()))
 
-    # Short hand for cost function
 
+    # Short hand for cost function
     costFunc = lambda p: nnCostFunction(p, input_layer_size, hidden_layer_size, num_labels, X, y, Lambda)
+    #costFunc = nnCostFunction(nn_params, input_layer_size, hidden_layer_size, num_labels, X, y, Lambda)
 
     numgrad = computeNumericalGradient(costFunc, nn_params)
     grad = costFunc(nn_params)[1]
+
+    print(numgrad)
+    print(grad)
 
     # Visually examine the two gradient computations.  The two columns
     # you get should be very similar.
@@ -52,3 +56,11 @@ def checkNNGradients(Lambda = 0):
           'the relative difference will be small (less than 1e-9). \n' \
           '\nRelative Difference: %g\n' % diff)
 
+    return(nn_params,grad)
+
+input_layer_size = 2
+hidden_layer_size = 1
+num_labels = 3
+m = 4
+a,b = checkNNGradients(Lambda = 0)
+    

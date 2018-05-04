@@ -14,8 +14,14 @@ def randInitializeWeights(L_in, L_out):
     # Note: The first row of W corresponds to the parameters for the bias units
     #
 
+    ep = np.sqrt(6)/np.sqrt(L_in+L_out)
+    print('range of random values should be: ',-ep,' : ',ep)
+    
+    W = np.random.random([L_out,L_in+1]) 
+    W = W*2*ep-ep
 
-
+    print('range of random values is: ',np.min(W),' : ',np.max(W))
 # =========================================================================
 
     return W
+

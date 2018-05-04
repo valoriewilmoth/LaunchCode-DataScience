@@ -4,6 +4,9 @@ import numpy as np
 from matplotlib import use
 use('TkAgg')
 
+import sys
+sys.path.append('../')
+
 from oneVsAll import oneVsAll
 from predictOneVsAll import predictOneVsAll
 from displayData import displayData

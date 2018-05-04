@@ -19,6 +19,9 @@ import numpy as np
 import scipy.io
 from scipy.optimize import minimize
 
+import sys
+sys.path.append('../')
+
 from ex3.displayData import displayData
 from ex3.predict import predict
 from nnCostFunction import nnCostFunction
@@ -118,8 +121,8 @@ input("Program paused. Press Enter to continue...")
 
 print('Evaluating sigmoid gradient...')
 
-g = sigmoidGradient(np.array([1, -0.5, 0, 0.5, 1]))
-print('Sigmoid gradient evaluated at [1 -0.5 0 0.5 1]: ')
+g = sigmoidGradient(np.array([-1, -0.5, 0, 0.5, 1]))
+print('Sigmoid gradient evaluated at [-1 -0.5 0 0.5 1]: ')
 print(g)
 
 input("Program paused. Press Enter to continue...")
@@ -139,6 +142,8 @@ initial_Theta2 = randInitializeWeights(hidden_layer_size, num_labels)
 # Unroll parameters
 initial_nn_params = np.hstack((initial_Theta1.T.ravel(), initial_Theta2.T.ravel()))
 
+
+input("Program paused. Press Enter to continue...")
 
 ## =============== Part 7: Implement Backpropagation ===============
 #  Once your cost matches up with ours, you should proceed to implement the
