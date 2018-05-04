@@ -1,4 +1,4 @@
-from costFunction import costFunction
+from ex2.costFunction import costFunction
 import numpy as np
 
 def costFunctionReg(theta, X, y, Lambda):

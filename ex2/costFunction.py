@@ -1,5 +1,5 @@
 from numpy import log
-from sigmoid import sigmoid
+from ex2.sigmoid import sigmoid
 import numpy as np
 
 def costFunction(theta, X,y):

@@ -1,4 +1,4 @@
-from sigmoid import sigmoid
+from ex2.sigmoid import sigmoid
 from numpy import squeeze, asarray, reshape
 import numpy as np
 
