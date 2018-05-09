@@ -11,7 +11,7 @@ def validationCurve(X, y, Xval, yval):
     """
 
 # Selected values of lambda (you should not change this)
-    lambda_vec = np.array([0, 0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1, 3, 10])
+    lambda_vec = np.array([0, 0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1., 3., 10.])
 
 # You need to return these variables correctly.
     error_train = np.zeros(lambda_vec.size)
@@ -28,19 +28,13 @@ def validationCurve(X, y, Xval, yval):
 #
 # Note: You can loop over lambda_vec with the following:
 #
-#       for i = 1:length(lambda_vec)
-#           lambda = lambda_vec(i)
-#           # Compute train / val errors when training linear 
-#           # regression with regularization parameter lambda
-#           # You should store the result in error_train(i)
-#           # and error_val(i)
-#           ....
-#           
-#       end
-#
-#
-
-
+    count = 0 
+    
+    for mylambda in lambda_vec:
+        fit_theta = trainLinearReg(X, y, mylambda, method='CG', maxiter=5000)
+        error_train[count] = linearRegCostFunction(X,y, fit_theta, mylambda)[0]
+        error_val[count] = linearRegCostFunction(Xval,yval, fit_theta, mylambda)[0]
+        count = count+1
 
 # =========================================================================
 

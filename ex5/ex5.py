@@ -54,6 +54,7 @@ m = X.size
 plt.scatter(X, y, marker='x', s=60, edgecolor='r', lw=1.5)
 plt.ylabel('Water flowing out of the dam (y)')            # Set the y-axis label
 plt.xlabel('Change in water level (x)')     # Set the x-axis label
+plt.show()
 
 input("Program paused. Press Enter to continue...")
 
@@ -93,13 +94,14 @@ input("Program paused. Press Enter to continue...")
 
 #  Train linear regression with Lambda = 0
 Lambda = 0
-theta = trainLinearReg(np.column_stack((np.ones(m), X)), y, 1)
+theta = trainLinearReg(np.column_stack((np.ones(m), X)), y, Lambda)
 
 #  Plot fit over the data
 plt.scatter(X, y, marker='x', s=20, edgecolor='r', lw=1.5)
 plt.ylabel('Water flowing out of the dam (y)')            # Set the y-axis label
 plt.xlabel('Change in water level (x)')     # Set the x-axis label
 plt.plot(X, np.column_stack((np.ones(m), X)).dot(theta), '--', lw=2.0)
+plt.show()
 
 input("Program paused. Press Enter to continue...") 
 
@@ -125,6 +127,7 @@ plt.ylabel('Error')
 plt.xlim(0, 13)
 plt.ylim(0, 150)
 plt.legend(loc='upper right', shadow=True, fontsize='x-large', numpoints=1)
+plt.show()
 
 print('Training Examples\tTrain Error\tCross Validation Error')
 for i in range(m):
@@ -159,7 +162,7 @@ X_poly_val = np.column_stack((np.ones(X_poly_test.shape[0]), X_poly_val))       
 print('Normalized Training Example 1:')
 print(X_poly[0, :])
 
-print('\nProgram paused. Press enter to continue.')
+input("Program paused. Press Enter to continue...") 
 
 
 
@@ -175,14 +178,15 @@ theta = trainLinearReg(X_poly, y, Lambda, method='BFGS', maxiter=10)
 
 # Plot training data and fit
 plt.figure()
-plt.scatter(X, y, marker='x', s=10, edgecolor='r', lw=1.5)
-
+plt.scatter(X, y, marker='x', s=10, c='r', lw=3.0)
 plotFit(min(X), max(X), mu, sigma, theta, p)
-
 plt.xlabel('Change in water level (x)')            # Set the y-axis label
 plt.ylabel('Water flowing out of the dam (y)')     # Set the x-axis label
 # plt.plot(X, np.column_stack((np.ones(m), X)).dot(theta), marker='_',  lw=2.0)
 plt.title('Polynomial Regression Fit (Lambda = %f)' % Lambda)
+plt.show()
+
+input("Program paused. Press Enter to continue...") 
 
 error_train, error_val = learningCurve(X_poly, y, X_poly_val, yval, Lambda)
 plt.plot(range(m), error_train, label='Train')
@@ -193,6 +197,7 @@ plt.ylabel('Error')
 plt.xlim(0, 13)
 plt.ylim(0, 150)
 plt.legend()
+plt.show()
 
 print('Polynomial Regression (Lambda = %f)\n\n' % Lambda)
 print('# Training Examples\tTrain Error\tCross Validation Error')
@@ -213,6 +218,7 @@ plt.plot(Lambda_vec, error_train, Lambda_vec, error_val)
 plt.legend('Train', 'Cross Validation')
 plt.xlabel('Lambda')
 plt.ylabel('Error')
+plt.show()
 
 print('Lambda\t\tTrain Error\tValidation Error')
 for i in range(Lambda_vec.size):

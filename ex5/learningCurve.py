@@ -43,20 +43,16 @@ def learningCurve(X, y, Xval, yval, Lambda):
 #
 # Hint: You can loop over the examples with the following:
 #
-#       for i = 1:m
-#           # Compute train/cross validation errors using training examples 
-#           # X(1:i, :) and y(1:i), storing the result in 
-#           # error_train(i) and error_val(i)
-#           ....
-#           
-#       end
-#
+    for i in range(1,m+1,1):
+           # Compute train/cross validation errors using training examples 
+           X_sub = X[0:i,:]  
+           y_sub = y[0:i]
 
-# ---------------------- Sample Solution ----------------------
+           fit_theta = trainLinearReg(X_sub, y_sub, Lambda, method='CG', maxiter=5000)
+           error_train[i-1] = linearRegCostFunction(X_sub,y_sub, fit_theta, Lambda)[0]
+           error_val[i-1] = linearRegCostFunction(Xval,yval, fit_theta, Lambda)[0]
 
 
-
-# -------------------------------------------------------------------------
 
 # =========================================================================
 
