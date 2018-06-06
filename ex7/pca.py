@@ -1,5 +1,6 @@
 import numpy as np
-
+import scipy.io
+from scipy import linalg
 
 def pca(X):
     """computes eigenvectors of the covariance matrix of X
@@ -20,6 +21,12 @@ def pca(X):
     #       number of examples).
     #
 
+
+    # Compute the covariance matrix
+    cov_matrix = X.T.dot(X)
+    # Run single value decomposition to get the U principal component matrix
+    U, S, V = scipy.linalg.svd(cov_matrix, full_matrices = True, compute_uv = True)
+    
 
 # =========================================================================
     return U, S, V

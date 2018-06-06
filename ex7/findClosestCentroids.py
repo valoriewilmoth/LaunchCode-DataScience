@@ -23,6 +23,8 @@ def findClosestCentroids(X, centroids):
 # Note: You can use a for-loop over the examples to compute this.
 
 
+    for i in range(centroids.shape[0]):
+        
 # =============================================================
 
     return val, idx

@@ -30,10 +30,10 @@ from pca import pca
 from projectData import projectData
 from recoverData import recoverData
 from kMeansInitCentroids import kMeansInitCentroids
-from runkMeans import runkMeans
-from plotDataPoints import plotDataPoints
-from ex3.displayData import displayData
-from show import show
+#from runkMeans import runkMeans
+#from plotDataPoints import plotDataPoints
+#from ex3.displayData import displayData
+
 
 ## ================== Part 1: Load Example Dataset  ===================
 #  We start this exercise by using a small dataset that is easily to
@@ -49,7 +49,7 @@ X = data['X']
 plt.scatter(X[:, 0], X[:, 1], marker='o', color='b', facecolors='none', lw=1.0)
 plt.axis([0.5, 6.5, 2, 8])
 plt.axis('equal')
-show()
+plt.show()
 
 input('Program paused. Press Enter to continue...')  
 
@@ -72,7 +72,7 @@ U, S, V = pca(X_norm)
 mu2 = mu + 1.5 * S.dot(U.T)
 plt.plot([mu[0], mu2[0, 0]], [mu[1], mu2[0, 1]], '-k', lw=2)
 plt.plot([mu[0], mu2[1, 0]], [mu[1], mu2[1, 1]], '-k', lw=2)
-show()
+plt.show()
 
 print('Top eigenvector: ')
 print(' U(:,1) = %f %f ', U[0,0], U[1,0])
