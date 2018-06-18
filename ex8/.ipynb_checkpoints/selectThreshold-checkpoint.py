@@ -10,7 +10,6 @@ def selectThreshold(yval, pval):
 
     bestEpsilon = 0
     bestF1 = 0
-    pred = np.zeros(pval.shape)
 
     stepsize = (np.max(pval) - np.min(pval)) / 1000.0
     for epsilon in np.arange(np.min(pval),np.max(pval), stepsize):
@@ -27,15 +26,7 @@ def selectThreshold(yval, pval):
 
 
         # =============================================================
-        
-        pred = (pval < epsilon)*1
-        tp = np.sum( (pred == 1) & (yval == 1) ) 
-        fp = np.sum( (pred == 1) & (yval == 0) )
-        fn = np.sum( (pred == 0) & (yval == 1) )
-        prec = tp/(tp+fp)
-        recall = tp/(tp+fn)
-        F1 = (2*prec*recall) / (prec + recall)
-        
+
         if F1 > bestF1:
            bestF1 = F1
            bestEpsilon = epsilon

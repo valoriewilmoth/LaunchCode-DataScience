@@ -75,7 +75,8 @@ p = multivariateGaussian(X, mu, sigma2)
 visualizeFit(X,  mu, sigma2)
 plt.xlabel('Latency (ms)')
 plt.ylabel('Throughput (mb/s)')
-plt.show()
+show()
+
 input("Program paused. Press Enter to continue...")  
 
 ## ================== Part 3: Find Outliers ===================
@@ -90,18 +91,12 @@ print('Best epsilon found using cross-validation: %e' % epsilon)
 print('Best F1 on Cross Validation Set:  %f' % F1)
 print('   (you should see a value epsilon of about 8.99e-05)')
 
-input("Program paused. Press Enter to continue...")
-
 #  Find the outliers in the training set and plot the
 outliers = np.where(p < epsilon, True, False)
 
 #  Draw a red circle around those outliers
-visualizeFit(X,  mu, sigma2)
-plt.xlabel('Latency (ms)')
-plt.ylabel('Throughput (mb/s)')
-plt.hold
 plt.plot(X[outliers, 0], X[outliers, 1], 'ro', lw=2, markersize=10, fillstyle='none', markeredgewidth=1)
-plt.show()
+show()
 
 input("Program paused. Press Enter to continue...")
 
